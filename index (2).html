@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NovaBuild — Modern Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #0a0a0a;
+      --white:  #f5f2ee;
+      --accent: #e8ff47;
+      --mid:    #141414;
+      --border: #222;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.4rem; letter-spacing: -0.03em;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--white); text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.08em;
+      text-transform: uppercase; opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-btn {
+      background: var(--accent); color: var(--black);
+      border: none; padding: 0.6rem 1.4rem;
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.8rem; cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .nav-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; padding: 10rem 5% 6rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -100px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(232,255,71,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--accent); color: var(--accent);
+      font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.4rem 1rem;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1.0; letter-spacing: -0.04em;
+      max-width: 780px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero p {
+      max-width: 500px; font-size: 1.1rem; line-height: 1.7;
+      opacity: 0.6; margin-top: 1.8rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; margin-top: 2.5rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--black);
+      padding: 0.9rem 2.2rem; border: none;
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.9rem; cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      padding: 0.9rem 2.2rem;
+      border: 1px solid var(--border);
+      font-family: 'Syne', sans-serif; font-weight: 600;
+      font-size: 0.9rem; cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--white); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; gap: 4rem; margin-top: 5rem;
+      border-top: 1px solid var(--border); padding-top: 2.5rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.2rem; font-weight: 800; color: var(--accent);
+    }
+    .stat-label { font-size: 0.8rem; opacity: 0.45; margin-top: 0.2rem; letter-spacing: 0.05em; }
+
+    /* ── SERVICES ── */
+    .services { padding: 7rem 5%; border-top: 1px solid var(--border); }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      max-width: 500px; line-height: 1.1; margin-bottom: 4rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .service-card {
+      padding: 2.5rem; background: var(--mid);
+      transition: background 0.25s; position: relative; overflow: hidden;
+    }
+    .service-card:hover { background: #1c1c1c; }
+    .service-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      height: 2px; width: 0; background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .service-card:hover::after { width: 100%; }
+    .service-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem;
+    }
+    .service-card p { font-size: 0.88rem; opacity: 0.5; line-height: 1.7; }
+
+    /* ── HOW ── */
+    .how {
+      padding: 7rem 5%;
+      background: var(--mid); border-top: 1px solid var(--border);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 3rem; margin-top: 4rem;
+    }
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 4rem; font-weight: 800; color: var(--border); line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem;
+    }
+    .step p { font-size: 0.88rem; opacity: 0.5; line-height: 1.7; }
+
+    /* ── CONTACT ── */
+    .contact {
+      padding: 7rem 5%; border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+    }
+    .contact-info h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 1.2rem;
+    }
+    .contact-info h2 em { color: var(--accent); font-style: normal; }
+    .contact-info p { opacity: 0.55; line-height: 1.8; font-size: 0.95rem; margin-bottom: 2.5rem; }
+    .contact-detail {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1rem; opacity: 0.55; font-size: 0.88rem;
+    }
+
+    /* ── FORM ── */
+    #lead-form {
+      background: var(--mid); border: 1px solid var(--border); padding: 2.5rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block; font-size: 0.72rem; letter-spacing: 0.08em;
+      text-transform: uppercase; opacity: 0.45; margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: var(--black);
+      border: 1px solid var(--border); color: var(--white);
+      padding: 0.85rem 1rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 300;
+      outline: none; transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select option { background: var(--black); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { opacity: 0.3; }
+
+    .submit-btn {
+      width: 100%; background: var(--accent); color: var(--black);
+      border: none; padding: 1rem;
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.95rem; letter-spacing: 0.04em;
+      cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover:not(:disabled) { opacity: 0.85; transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-status {
+      margin-top: 1rem; padding: 0.9rem 1rem;
+      font-size: 0.88rem; text-align: center; display: none;
+    }
+    .form-status.success {
+      display: block;
+      background: rgba(232,255,71,0.08);
+      border: 1px solid var(--accent); color: var(--accent);
+    }
+    .form-status.error {
+      display: block;
+      background: rgba(255,80,80,0.08);
+      border: 1px solid #ff5050; color: #ff5050;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 5%; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      opacity: 0.35; font-size: 0.8rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-stats { gap: 2rem; flex-wrap: wrap; }
+      .contact { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Nova<span>Build</span></div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">✦ Trusted by 200+ businesses</div>
+    <h1>We Build Things That <em>Actually</em> Work</h1>
+    <p>Custom software, web platforms, and digital solutions — engineered for scale, designed for humans.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Start a Project</a>
+      <a href="#services" class="btn-ghost">See Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">200+</div><div class="stat-label">Projects Delivered</div></div>
+      <div><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>
+      <div><div class="stat-num">6yr</div><div class="stat-label">In the Industry</div></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-label">✦ What we do</div>
+    <h2 class="section-title">Solutions Built for Your Business</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Web Development</h3>
+        <p>Fast, scalable web applications built with modern tech stacks — from landing pages to complex platforms.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Mobile Apps</h3>
+        <p>Native and cross-platform mobile apps that your users will actually love to open every day.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>AI Integration</h3>
+        <p>Bring AI into your workflows — chatbots, automation, data analysis, and intelligent features.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>CRM & Systems</h3>
+        <p>Custom CRMs, dashboards, and internal tools tailored exactly to how your team works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="section-label">✦ Process</div>
+    <h2 class="section-title">Simple Steps to Launch</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Tell us your idea</h3>
+        <p>Fill out the form below. We'll review your requirements and get back within 24 hours.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Strategy call</h3>
+        <p>A quick 30-min call to understand your goals, timeline, and budget — no pressure.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>We build & deliver</h3>
+        <p>Our team gets to work. You get regular updates and a final product you're proud of.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Ongoing support</h3>
+        <p>We don't disappear after launch. We're here for updates, maintenance, and growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact" id="contact">
+    <div class="contact-info">
+      <div class="section-label">✦ Get in touch</div>
+      <h2>Let's Build Something <em>Great</em></h2>
+      <p>Have a project in mind? Fill out the form and our team will reach out within one business day.</p>
+      <div class="contact-detail"><span>📧</span><span>hello@novabuild.io</span></div>
+      <div class="contact-detail"><span>📞</span><span>+1 (555) 000-1234</span></div>
+      <div class="contact-detail"><span>📍</span><span>San Francisco, CA</span></div>
+    </div>
+
+    <div>
+      <form id="lead-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="John Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="john@company.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Your Company" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service" name="service">
+            <option value="">Select a service...</option>
+            <option value="web">Web Development</option>
+            <option value="mobile">Mobile App</option>
+            <option value="ai">AI Integration</option>
+            <option value="crm">CRM / Internal Tools</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" name="message" placeholder="Describe your project, goals, and timeline..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submit-btn">Send Message →</button>
+        <div class="form-status" id="form-status"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© 2026 NovaBuild. All rights reserved.</div>
+    <div>Built with ♥ for great products</div>
+  </footer>
+  <script 
+  src="https://ibunify.com/autocapture.js" 
+  data-crm-url="https://ibunify.com" 
+  data-website-id="f90b5dd9-a73b-4b82-b016-e1efd39bc1b8">
+</script>
+<script 
+  src="https://ibunify.com/widget.js" 
+  data-crm-url="https://ibunify.com" 
+  data-website-id="f90b5dd9-a73b-4b82-b016-e1efd39bc1b8">
+</script>
+  <script>
+    // Basic form UI feedback (tracker.js handles the actual CRM submission)
+    document.getElementById('lead-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn    = document.getElementById('submit-btn');
+      const status = document.getElementById('form-status');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      setTimeout(() => {
+        btn.textContent = 'Message Sent ✓';
+        status.className = 'form-status success';
+        status.textContent = "✓ Thanks! We'll be in touch within 24 hours.";
+      }, 800);
+    });
+  </script>
+
+</body>
+</html>
